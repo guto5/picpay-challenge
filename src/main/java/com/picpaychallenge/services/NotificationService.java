@@ -10,18 +10,18 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class NotificationService {
-    @Autowired
-    RestTemplate restTemplate;
+  @Autowired
+  RestTemplate restTemplate;
 
-    public void sendNotification(User user, String message) throws Exception {
-        String email = user.getEmail();
-        NotificationDTO notificationRequest = new NotificationDTO(email, message);
+  public void sendNotification(User user, String message) throws Exception {
+    String email = user.getEmail();
+    NotificationDTO notificationRequest = new NotificationDTO(email, message);
 
-       ResponseEntity<String> notificationResponse = restTemplate.postForEntity("https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6", notificationRequest, String.class);
+    ResponseEntity<String> notificationResponse = restTemplate.postForEntity("https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6", notificationRequest, String.class);
 
-       if(!(notificationResponse.getStatusCode() == HttpStatus.OK)){
-           System.out.println("error while sending notification");
-           throw new Exception("Notification service is current offline!");
-       }
+    if (!(notificationResponse.getStatusCode() == HttpStatus.OK)) {
+      System.out.println("Error while sending notification");
+      throw new Exception("Notification service is currently offline!");
     }
+  }
 }

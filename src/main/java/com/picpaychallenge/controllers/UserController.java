@@ -14,18 +14,18 @@ import java.util.List;
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+  @Autowired
+  private UserService userService;
 
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody UserDTO userDto){
-        User newUser = userService.createUser(userDto);
-        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
-    }
+  @PostMapping
+  public ResponseEntity<User> createUser(@RequestBody UserDTO userDto) {
+    User newUser = userService.createUser(userDto);
+    return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+  }
 
-    @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> userList = this.userService.getAllUsers();
-        return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
-    }
+  @GetMapping
+  public ResponseEntity<List<User>> getAllUsers() {
+    List<User> userList = this.userService.getAllUsers();
+    return new ResponseEntity<List<User>>(userList, HttpStatus.OK);
+  }
 }

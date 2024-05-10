@@ -12,34 +12,34 @@ import java.util.List;
 
 @Service
 public class UserService {
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
-    public void validateTransaction(User sender, BigDecimal amount) throws Exception {
-        if (sender.getUserType() == UserType.MERCHANT) {
-            throw new Exception("Usuario Lojista nao autorizado");
-        }
-
-        if(sender.getBalance().compareTo(amount) < 0) {
-            throw new Exception("Saldo Insuficiente");
-        }
+  public void validateTransaction(User sender, BigDecimal amount) throws Exception {
+    if (sender.getUserType() == UserType.MERCHANT) {
+      throw new Exception("Merchant user not authorized");
     }
 
-    public User findUserById(Long id) throws Exception {
-        return this.userRepository.findUserById(id).orElseThrow(() -> new Exception("Usuario nao encontrado!"));
+    if (sender.getBalance().compareTo(amount) < 0) {
+      throw new Exception("Insufficient balance");
     }
+  }
 
-    public User createUser(UserDTO userDTO){
-        User newUser = new User(userDTO);
-        this.saveUser(newUser);
-        return newUser;
-    }
+  public User findUserById(Long id) throws Exception {
+    return this.userRepository.findUserById(id).orElseThrow(() -> new Exception("User not found!"));
+  }
 
-    public List<User> getAllUsers() {
-        return this.userRepository.findAll();
-    }
+  public User createUser(UserDTO userDTO) {
+    User newUser = new User(userDTO);
+    this.saveUser(newUser);
+    return newUser;
+  }
 
-    public void saveUser(User user){
-        this.userRepository.save(user);
-    }
+  public List<User> getAllUsers() {
+    return this.userRepository.findAll();
+  }
+
+  public void saveUser(User user) {
+    this.userRepository.save(user);
+  }
 }
